@@ -12,7 +12,7 @@ class Periods(db.Model):
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     start = db.Column(db.String(40), nullable=False) # 시작일
     end = db.Column(db.String(40), nullable=False) # 종료일
-    created_at = db.Column(db.String(40), nullable=False) # 생성날짜
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now) # 생성날짜
 
     def get_period_object(self):
         period = {

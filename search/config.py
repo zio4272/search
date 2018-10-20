@@ -12,8 +12,7 @@ class Config(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:dlstkrhk1q'+\
-        '@localhost/search'
-    #asd;lkasd;akld
+        '@localhost/phone'
 
 class ProductionConfig(Config):
     """
