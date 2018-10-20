@@ -15,8 +15,9 @@ class Users(db.Model):
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now) # 가입일
 
     contact = db.relationship('Contacts')
-    call_log = db.relationship('CallLog')
-    message = db.relationship('Message')
+    call_log = db.relationship('CallLogs')
+    message = db.relationship('Messages')
+    period = db.relationship('Periods')
 
     def get_user_object(self):
         user = {

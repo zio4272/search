@@ -10,9 +10,9 @@ class CallLogs(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    log_type = db.Column(db.Enum('IN','OUT','MISS')) # 종류 : 수신, 발신, 부재중
-    time = db.Column(db.String(40)) # 통화시간 얼마나 했는지
-    created_at = db.Column(db.String(40)) # 전화를 한 시간
+    log_type = db.Column(db.Enum('IN','OUT','MISS'), nullable=False) # 종류 : 수신, 발신, 부재중
+    time = db.Column(db.String(40), nullable=False) # 통화시간 얼마나 했는지
+    created_at = db.Column(db.String(40), nullable=False) # 전화를 한 시간
 
     def get_call_log_object(self):
         call_log = {
