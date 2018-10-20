@@ -9,18 +9,18 @@ class Messages(db.Model):
     __tablename__ = 'messages'
 
     id = db.Column(db.Integer, primary_key=True)
-    cid = db.Column(db.Integer, db.ForeignKey('contacts.id'), nullable=False)
+    uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     phone = db.Column(db.String(40), nullable=False) # 전화번호 or 이름
     content = db.Column(db.String(255), nullable=False) # 메시지 내용
-    date = db.Column(db.String(40), nullable=False) # 날짜
+    created_at = db.Column(db.String(40), nullable=False) # 날짜
 
     def get_message_object(self):
         message = {
             'id': self.id,
-            'cid': self.cid,
+            'uid': self.uid,
             'phone': self.phone,
             'content': self.content,
-            'date': self.date
+            'created_at': self.created_at
         }
 
         return message

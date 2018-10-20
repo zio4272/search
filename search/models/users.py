@@ -9,27 +9,21 @@ class Users(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.String(32), nullable=False, unique=True)
-    password = db.Column(db.String(32), nullable=False)
-    area = db.Column(db.String(11), nullable=False) # 지역
-    kind = db.Column(db.String(11), nullable=False) # 종류
+    user_id = db.Column(db.String(32), nullable=False, unique=True) #아이디는 폰번호로
+    auth = db.Column(db.String(32), nullable=False)
     name = db.Column(db.String(11), nullable=False) # 이름
-    phone = db.Column(db.String(20), nullable=False) # 전번
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now) # 가입일
 
-    # company = db.relationship('Company')
-    # password = db.Column(db.Integer, db.ForeignKey('area_main.am_idx'), nullable=False, default=0)
-
     contact = db.relationship('Contacts')
+    call_log = db.relationship('CallLog')
+    message = db.relationship('Message')
 
     def get_user_object(self):
         user = {
             'id': self.id,
             'user_id': self.user_id,
-            'area': self.area,
-            'kind': self.kind,
+            'auth': self.auth,
             'name': self.name,
-            'phone': self.phone,
             'created_at': self.created_at
         }
 
