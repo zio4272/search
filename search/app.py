@@ -17,9 +17,9 @@ def create_app(config_name):
 
     api = Api(app, api_version='0.0', api_spec_url='/api/spec', title='search spec', catch_all_404s=True)
 
-    # from .api.viewlog import Viewlogs
+    from .api.auth import Auth
 
-    # api.add_resource(Auth, '/auth')
+    api.add_resource(Auth, '/auth')
     
 
     swaggerui_blueprint = get_swaggerui_blueprint('/api/docs', '/api/spec.json', config={'app_name': 'search'})
