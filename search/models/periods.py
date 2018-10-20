@@ -20,7 +20,7 @@ class Periods(db.Model):
             'uid': self.uid,
             'start': self.start,
             'end': self.end,
-            'created_at': self.created_at
+            'created_at': str(self.created_at)
         }
 
         return period

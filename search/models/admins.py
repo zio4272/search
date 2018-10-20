@@ -16,7 +16,7 @@ class Admins(db.Model):
         admin = {
             'id': self.id,
             'uid': self.uid,
-            'created_at': self.created_at
+            'created_at': str(self.created_at)
         }
 
         return admin

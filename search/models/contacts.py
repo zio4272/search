@@ -12,9 +12,7 @@ class Contacts(db.Model):
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     phone = db.Column(db.String(40), nullable=False) # 전번
     name = db.Column(db.String(11), nullable=False) # 저장된 이름
-    created_at = db.Column(db.DateTime, nullable=False)
-
-    call_log = db.relationship('CallLog')
+    created_at = db.Column(db.String(40), nullable=False) #저장된 날짜
 
     def get_contact_object(self):
         contact = {

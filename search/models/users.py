@@ -11,7 +11,7 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.String(32), nullable=False, unique=True) #아이디는 폰번호로
     auth = db.Column(db.String(32), nullable=False)
-    name = db.Column(db.String(11), nullable=False) # 이름
+    name = db.Column(db.String(11)) # 이름
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now) # 가입일
 
     contact = db.relationship('Contacts')
@@ -25,7 +25,7 @@ class Users(db.Model):
             'user_id': self.user_id,
             'auth': self.auth,
             'name': self.name,
-            'created_at': self.created_at
+            'created_at': str(self.created_at)
         }
 
         return user
