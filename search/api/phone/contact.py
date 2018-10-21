@@ -116,12 +116,24 @@ class Contact(Resource):
         ],
         'responses': {
             '200': {
-                'description': '연락처 저장 성공',
+                'description': '연락처 조회 성공',
                 'schema': ResponseModel,
                 'examples': {
                     'application/json': {
                         'code': 200,
-                        'message': '연락처 저장 성공'
+                        'message': '연락처 조회 성공',
+                        "data": {
+                            "contacts": [
+                                {
+                                    "id": 3290,
+                                    "uid": 1,
+                                    "phone": "010-1111-0000",
+                                    "name": "김",
+                                    "created_at": "2010-10-10 11:11:11",
+                                    "shop_name": "사용자입니다"
+                                }
+                            ]
+                        }
                     }
                 }
             },
