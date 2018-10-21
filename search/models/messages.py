@@ -14,6 +14,8 @@ class Messages(db.Model):
     content = db.Column(db.String(255), nullable=False) # 메시지 내용
     created_at = db.Column(db.String(40), nullable=False) # 날짜
 
+    user = db.relationship('Users')
+
     def get_message_object(self):
         message = {
             'id': self.id,
@@ -22,5 +24,5 @@ class Messages(db.Model):
             'content': self.content,
             'created_at': self.created_at
         }
-
+        message['shop_name'] = self.user.name
         return message
