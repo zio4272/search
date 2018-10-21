@@ -14,6 +14,9 @@ from search.api.auth.utils import token_required
 put_parser = reqparse.RequestParser()
 put_parser.add_argument('contacts', type=str, required=True, location='form')
 
+get_parser = reqparse.RequestParser()
+get_parser.add_argument('phone', type=str, required=True, location='args')
+
 class Contact(Resource):
     @swagger.doc({
         'tags': ['contact'],
@@ -91,4 +94,73 @@ class Contact(Resource):
         return {
             'code': 200,
             'message': '연락처 저장 성공.'
+        }, 200
+
+    @swagger.doc({
+        'tags': ['contact'],
+        'description': '연락처 조회',
+        'parameters': [
+            {
+                'name': 'X-Http-Token',
+                'description': '토큰으로 유저 조회',
+                'in': 'header',
+                'type': 'string',
+                'required': True
+            }, {
+                'name': 'phone',
+                'description': '010-1010-1010',
+                'in': 'header',
+                'type': 'string',
+                'required': True
+            }
+        ],
+        'responses': {
+            '200': {
+                'description': '연락처 저장 성공',
+                'schema': ResponseModel,
+                'examples': {
+                    'application/json': {
+                        'code': 200,
+                        'message': '연락처 저장 성공'
+                    }
+                }
+            },
+            '400': {
+                'description': '파라미터 값 이상',
+                'schema': ResponseModel,
+                'examples': {
+                    'application/json': {
+                        'code': 400,
+                        'message': '특정 파라미터 값이 올바르지 않습니다.'
+                    }
+                }
+            }
+        }
+    })
+    @token_required
+    def get(self):
+        """ 연락처 조회 """
+
+        old_time = datetime.datetime.now()
+
+        args = get_parser.parse_args()
+
+        user = g.user.id
+
+        search = Contacts.query\
+            .filter(Contacts.phone == args['phone'])\
+            .all()
+
+        cur_time = datetime.datetime.now()
+
+        print(cur_time - old_time)
+
+        return {
+            'code': 200,
+            'message': '연락처 조회 성공.',
+            'data': {
+                'contacts': [
+                    x.get_contact_object() for x in search
+                ]
+            }
         }, 200

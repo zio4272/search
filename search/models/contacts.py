@@ -14,6 +14,8 @@ class Contacts(db.Model):
     name = db.Column(db.String(11), nullable=False) # 저장된 이름
     created_at = db.Column(db.String(40), nullable=False) #저장된 날짜
 
+    user = db.relationship('Users')
+
     def get_contact_object(self):
         contact = {
             'id': self.id,
@@ -22,5 +24,5 @@ class Contacts(db.Model):
             'name': self.name,
             'created_at': self.created_at
         }
-
+        contact['shop_name'] = self.user.name
         return contact
