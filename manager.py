@@ -16,7 +16,7 @@ def runserver():
 @manager.command
 def debug():
     app.config.from_object('search.config.DevelopmentConfig')
-    app.run()
+    app.run(host='0.0.0.0')
 
 @manager.command
 def init_db():
