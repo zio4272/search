@@ -22,7 +22,7 @@ class Messages(db.Model):
             'id': self.id,
             'uid': self.uid,
             'phone': self.phone,
-            'type': self.type
+            'type': self.type,
             'content': self.content,
             'created_at': self.created_at
         }
