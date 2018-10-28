@@ -18,12 +18,15 @@ def create_app(config_name):
 
     from .api.auth import Auth
     from .api.phone import Contact, Message, CallLog
-
+    from .api.popup import Popup
+    
     api.add_resource(Auth, '/auth')
 
     api.add_resource(Contact, '/contact')
     api.add_resource(Message, '/message')
     api.add_resource(CallLog, '/call_log')
+
+    api.add_resource(Popup, '/popup')
     
 
     swaggerui_blueprint = get_swaggerui_blueprint('/api/docs', '/api/spec.json', config={'app_name': 'search'})

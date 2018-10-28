@@ -17,6 +17,9 @@ put_parser.add_argument('contacts', type=str, required=True, location='form')
 get_parser = reqparse.RequestParser()
 get_parser.add_argument('phone', type=str, required=True, location='args')
 
+post_parser = reqparse.RequestParser()
+post_parser.add_argument('phone', type=str, required=True, location='form')
+
 class Contact(Resource):
     @swagger.doc({
         'tags': ['contact'],
