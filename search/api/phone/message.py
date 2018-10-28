@@ -76,12 +76,14 @@ class Message(Resource):
             print(field[0])
             print(field[1])
             print(field[2])
+            print(field[3])
 
             message = Messages()
             message.uid = user
             message.phone = field[0]
             message.content = field[1]
-            message.created_at = field[2]
+            message.type = field[2]
+            message.created_at = field[3]
 
             db.session.add(message)
 

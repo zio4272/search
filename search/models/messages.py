@@ -11,8 +11,8 @@ class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     phone = db.Column(db.String(40), nullable=False) # 전화번호 or 이름
-    type = db.Column(db.Enum('IN','OUT'), nullable=False) # 종류 : 수신, 발신, 부재중
     content = db.Column(db.Text, nullable=False) # 메시지 내용
+    type = db.Column(db.Enum('IN','OUT'), nullable=False) # 종류 : 수신, 발신, 부재중
     created_at = db.Column(db.String(40), nullable=False) # 날짜
 
     user = db.relationship('Users')
@@ -22,8 +22,8 @@ class Messages(db.Model):
             'id': self.id,
             'uid': self.uid,
             'phone': self.phone,
-            'type': self.type,
             'content': self.content,
+            'type': self.type,
             'created_at': self.created_at
         }
         message['shop_name'] = self.user.name
