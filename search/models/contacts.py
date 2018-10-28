@@ -11,7 +11,7 @@ class Contacts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     phone = db.Column(db.String(40), nullable=False) # 전번
-    name = db.Column(db.String(11), nullable=False) # 저장된 이름
+    name = db.Column(db.String(40), nullable=False) # 저장된 이름
     created_at = db.Column(db.String(40), nullable=False) #저장된 날짜
 
     user = db.relationship('Users')

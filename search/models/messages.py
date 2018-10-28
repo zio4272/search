@@ -11,7 +11,7 @@ class Messages(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     phone = db.Column(db.String(40), nullable=False) # 전화번호 or 이름
-    content = db.Column(db.String(255), nullable=False) # 메시지 내용
+    content = db.Column(db.Text, nullable=False) # 메시지 내용
     created_at = db.Column(db.String(40), nullable=False) # 날짜
 
     user = db.relationship('Users')

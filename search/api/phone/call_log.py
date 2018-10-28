@@ -202,7 +202,7 @@ class CallLog(Resource):
             'code': 200,
             'message': '전화기록 조회 성공.',
             'data': {
-                'messages': [
+                'call_logs': [
                     x.get_call_log_object() for x in search
                 ]
             }
