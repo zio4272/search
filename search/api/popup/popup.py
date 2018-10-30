@@ -11,8 +11,8 @@ from search.swagger import ResponseModel
 from search.models import Users, Contacts
 from search.api.auth.utils import token_required
 
-get_parser = reqparse.RequestParser()
-get_parser.add_argument('phone', type=str, required=True, location='args')
+post_parser = reqparse.RequestParser()
+post_parser.add_argument('phone', type=str, required=True, location='form')
 
 class Popup(Resource):
     @swagger.doc({
@@ -28,7 +28,7 @@ class Popup(Resource):
             }, {
                 'name': 'phone',
                 'description': '010-1010-1010',
-                'in': 'header',
+                'in': 'formData',
                 'type': 'string',
                 'required': True
             }
@@ -62,10 +62,10 @@ class Popup(Resource):
         }
     })
     @token_required
-    def get(self):
+    def post(self):
         """ 팝업 번호 조회 """
 
-        args = get_parser.parse_args()
+        args = post_parser.parse_args()
 
         user = g.user.id
 
