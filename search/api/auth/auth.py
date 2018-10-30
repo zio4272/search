@@ -6,9 +6,11 @@ import random
 from flask_restful import Resource, reqparse
 from flask_restful_swagger_2 import swagger
 
+from sqlalchemy import and_
+
 from search import db
 from search.swagger import ResponseModel
-from search.models import Users, Admins
+from search.models import Users, Admins, Periods
 from .utils import encode_token, decode_token, token_required
 
 signup_parser = reqparse.RequestParser()
@@ -135,13 +137,22 @@ class Auth(Resource):
                         "data": {
                             "user": {
                                 "id": 1,
-                                "user_id": "010-1010-1010",
-                                "auth": "50310635",
-                                "name": "",
-                                "created_at": "2018-10-20 20:50:15"
+                                "user_id": "01012345678",
+                                "auth": "123456",
+                                "name": "이름-이름-이름",
+                                "created_at": "2018-10-28 20:04:21",
+                                "period": {
+                                    "id": 7,
+                                    "uid": 1,
+                                    "start": "2018-10-30",
+                                    "end": "2020-06-21",
+                                    "created_at": "2018-10-30 20:37:31",
+                                    "updated_at": "2018-10-30 20:44:51"
+                                },
+                                "days": "600"
                             },
-                            'is_admin': 'True & False',
-                            "token": "token"
+                            "is_admin": 'True',
+                            "token": "token value"
                         }
                     }
                 }
@@ -173,16 +184,35 @@ class Auth(Resource):
                 'code': 400,
                 'message': '인증실패. 인증정보를 확인 해주세요.'
             }, 400
+        
+        elif not user.period:
+            return {
+                'code': 400,
+                'message': '인증받은 유료 회원이 아닙니다.'
+            }, 400
+            
+        else:
+            today = str(datetime.date.today())
+            pay = Periods.query\
+                .filter(Periods.uid == user.id)\
+                .filter(and_(Periods.end >= today))\
+                .first()
+            print(pay)
+            if not pay:
+                return {
+                    'code': 400,
+                    'message': '사용기간이 만료된 회원입니다.'
+                }, 400
 
-        return {
-            'code': 200,
-            'message': '인증 성공',
-            'data': {
-                'user': user.get_user_object(),
-                'is_admin': True if user.admin else False,
-                'token': encode_token(user)
-            }
-        }, 200
+            return {
+                'code': 200,
+                'message': '인증 성공',
+                'data': {
+                    'user': user.get_user_object(period_object=True, days_object=True),
+                    'is_admin': True if user.admin else False,
+                    'token': encode_token(user)
+                }
+            }, 200
 
     @swagger.doc({
         'tags': ['auth'],
