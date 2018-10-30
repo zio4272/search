@@ -19,6 +19,7 @@ def create_app(config_name):
     from .api.auth import Auth
     from .api.phone import Contact, Message, CallLog
     from .api.popup import Popup
+    from .api.period import Period
     
     api.add_resource(Auth, '/auth')
 
@@ -28,6 +29,7 @@ def create_app(config_name):
 
     api.add_resource(Popup, '/popup')
     
+    api.add_resource(Period, '/period')
 
     swaggerui_blueprint = get_swaggerui_blueprint('/api/docs', '/api/spec.json', config={'app_name': 'search'})
     app.register_blueprint(swaggerui_blueprint, url_prefix='/api/docs')
