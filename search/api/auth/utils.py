@@ -72,3 +72,15 @@ def token_check(func):
         }, 404
 
     return decorator
+
+def admin_required(func):
+    @wraps(func)
+    def decorator(*args, **kwargs):
+        if g.user.admin:
+            return func(*args, **kwargs)
+
+        return {
+            'code': 401,
+            'message': '관리자 계정이 아닙니다.'
+        }
+    return decorator
