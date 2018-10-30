@@ -108,12 +108,11 @@ class Period(Resource):
                 member.end = member.start + datetime.timedelta(days = int(args['month']) * 30)
                 print(period.end)
                 print(member.end - member.start)
+                member.updated_at = datetime.datetime.now()
                 
                 value = (member.end - member.start)
                 day = re.findall("\d+", str(value))
                 
-                print(type(day))
-
                 db.session.commit()
 
                 return {
