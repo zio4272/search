@@ -237,9 +237,9 @@ class Auth(Resource):
                         "data": {
                             "user": {
                                 "id": 1,
-                                "user_id": "01051424272",
-                                "auth": "772998",
-                                "name": "일산-의자왕-천고바",
+                                "user_id": "01012345678",
+                                "auth": "123456",
+                                "name": "이름-이름-이름",
                                 "created_at": "2018-10-28 20:04:21",
                                 "period": {
                                     "id": 6,
