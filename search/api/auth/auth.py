@@ -8,8 +8,8 @@ from flask_restful_swagger_2 import swagger
 
 from search import db
 from search.swagger import ResponseModel
-from search.models import Users
-from .utils import encode_token, decode_token
+from search.models import Users, Admins
+from .utils import encode_token, decode_token, token_required
 
 signup_parser = reqparse.RequestParser()
 signup_parser.add_argument('user_id', type=str, required=True, location='form')
@@ -178,6 +178,7 @@ class Auth(Resource):
             'message': '인증 성공',
             'data': {
                 'user': user.get_user_object(),
+                'is_admin': True if user.admin else False,
                 'token': encode_token(user)
             }
         }, 200
@@ -227,6 +228,7 @@ class Auth(Resource):
             }
         }
     })
+    @token_required
     def get(self):
         """토큰으로 유저조회"""
         args = token_parser.parse_args()
