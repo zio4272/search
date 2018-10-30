@@ -140,6 +140,7 @@ class Auth(Resource):
                                 "name": "",
                                 "created_at": "2018-10-20 20:50:15"
                             },
+                            'is_admin': 'True & False',
                             "token": "token"
                         }
                     }
@@ -206,12 +207,22 @@ class Auth(Resource):
                         "data": {
                             "user": {
                                 "id": 1,
-                                "user_id": "010-1010-1010",
-                                "auth": "50310635",
-                                "name": "",
-                                "created_at": "2018-10-20 20:50:15"
+                                "user_id": "01051424272",
+                                "auth": "772998",
+                                "name": "일산-의자왕-천고바",
+                                "created_at": "2018-10-28 20:04:21",
+                                "period": {
+                                    "id": 6,
+                                    "uid": 1,
+                                    "start": "2018-10-30",
+                                    "end": "2020-06-21",
+                                    "created_at": "2018-10-30 19:11:17",
+                                    "updated_at": "2018-10-30 19:31:51"
+                                },
+                                "days": "600"
                             },
-                            "token": "token"
+                            "is_admin": 'true',
+                            "token": "token value"
                         }
                     }
                 }
@@ -240,6 +251,7 @@ class Auth(Resource):
                 'message': '토큰으로 유저조회 성공',
                 'data': {
                     'user': user.get_user_object(period_object=True, days_object=True),
+                    'is_admin': True if user.admin else False,
                     'token': encode_token(user)
                 }
             }, 200
