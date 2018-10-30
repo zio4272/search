@@ -1,6 +1,7 @@
 # -*- coding:utf8 -*-
 # pylint: disable=E1101
 import datetime
+import re
 
 from search import db
 
@@ -17,10 +18,10 @@ class Users(db.Model):
     contact = db.relationship('Contacts')
     call_log = db.relationship('CallLogs')
     message = db.relationship('Messages')
-    period = db.relationship('Periods')
+    period = db.relationship('Periods', uselist=False)
     admin = db.relationship('Admins')
 
-    def get_user_object(self):
+    def get_user_object(self, period_object=False, days_object=False):
         user = {
             'id': self.id,
             'user_id': self.user_id,
@@ -28,5 +29,19 @@ class Users(db.Model):
             'name': self.name,
             'created_at': str(self.created_at)
         }
+
+        if period_object:
+            user['period'] = self.period.get_period_object() if self.period else None
+
+        if days_object:
+
+            end = datetime.datetime.strptime(self.period.end, "%Y-%m-%d")
+            start = datetime.datetime.strptime(self.period.start, "%Y-%m-%d")
+
+            value = (end - start)
+
+            day = re.findall("\d+", str(value))
+            
+            user['days'] = day[0]
 
         return user

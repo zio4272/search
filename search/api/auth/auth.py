@@ -239,7 +239,7 @@ class Auth(Resource):
                 'code': 200,
                 'message': '토큰으로 유저조회 성공',
                 'data': {
-                    'user': user.get_user_object(),
+                    'user': user.get_user_object(period_object=True, days_object=True),
                     'token': encode_token(user)
                 }
             }, 200
