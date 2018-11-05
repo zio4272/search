@@ -163,6 +163,7 @@ class Message(Resource):
 
         search = Messages.query\
             .filter(Messages.phone == args['phone'])\
+            .order_by(Messages.created_at.desc())\
             .all()
 
         cur_time = datetime.datetime.now()
