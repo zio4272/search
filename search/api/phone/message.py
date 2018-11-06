@@ -19,6 +19,10 @@ put_parser.add_argument('messages', type=str, required=True, location='form')
 get_parser = reqparse.RequestParser()
 get_parser.add_argument('phone', type=str, required=True, location='args')
 
+post_parser = reqparse.RequestParser()
+post_parser.add_argument('uid', type=str, required=True, location='form')
+post_parser.add_argument('phone', type=str, required=True, location='form')
+
 class Message(Resource):
     @swagger.doc({
         'tags': ['contact'],
@@ -157,11 +161,7 @@ class Message(Resource):
     def get(self):
         """ 메시지 조회 """
 
-        old_time = datetime.datetime.now()
-
         args = get_parser.parse_args()
-
-        user = g.user.id
 
         search = Messages.query\
             .filter(Messages.phone == args['phone'])\
@@ -169,15 +169,93 @@ class Message(Resource):
             .order_by(Messages.created_at.desc())\
             .all()
         print(search)
-        print(len(search))
-
-        cur_time = datetime.datetime.now()
-
-        print(cur_time - old_time)
 
         return {
             'code': 200,
             'message': '메시지 조회 성공.',
+            'data': {
+                'messages': [
+                    x.get_message_object() for x in search
+                ]
+            }
+        }, 200
+
+    @swagger.doc({
+        'tags': ['contact'],
+        'description': '메시지 상세 조회',
+        'parameters': [
+            {
+                'name': 'X-Http-Token',
+                'description': '토큰으로 유저 조회',
+                'in': 'header',
+                'type': 'string',
+                'required': True
+            }, {
+                'name': 'uid',
+                'description': 'uid',
+                'in': 'formData',
+                'type': 'string',
+                'required': True
+            }, {
+                'name': 'phone',
+                'description': 'phone',
+                'in': 'formData',
+                'type': 'string',
+                'required': True
+            }
+        ],
+        'responses': {
+            '200': {
+                'description': '메시지 상세 조회 성공',
+                'schema': ResponseModel,
+                'examples': {
+                    'application/json': {
+                        'code': 200,
+                        'message': '메시지 상세 조회 성공',
+                        "data": {
+                            "messages": [
+                                {
+                                    "id": 2288,
+                                    "uid": 2,
+                                    "phone": "01011112222",
+                                    "content": "나나나나난나ㅏㄴ나나나난",
+                                    "type": "",
+                                    "created_at": "2018-11-06 00:12:34",
+                                    "shop_name": "이염증"
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            '400': {
+                'description': '파라미터 값 이상',
+                'schema': ResponseModel,
+                'examples': {
+                    'application/json': {
+                        'code': 400,
+                        'message': '특정 파라미터 값이 올바르지 않습니다.'
+                    }
+                }
+            }
+        }
+    })
+    @token_required
+    def post(self):
+        """ 메시지 상세 조회 """
+
+        args = post_parser.parse_args()
+
+        search = Messages.query\
+            .filter(Messages.uid == args['uid'])\
+            .filter(Messages.phone == args['phone'])\
+            .order_by(Messages.created_at.desc())\
+            .all()
+        print(search)
+
+        return {
+            'code': 200,
+            'message': '메시지 상세 조회 성공.',
             'data': {
                 'messages': [
                     x.get_message_object() for x in search
