@@ -6,6 +6,8 @@ from flask import g, current_app
 from flask_restful import Resource, reqparse
 from flask_restful_swagger_2 import swagger
 
+from sqlalchemy import func
+
 from search import db
 from search.swagger import ResponseModel
 from search.models import Users, Messages
@@ -163,8 +165,11 @@ class Message(Resource):
 
         search = Messages.query\
             .filter(Messages.phone == args['phone'])\
+            .group_by(Messages.uid)\
             .order_by(Messages.created_at.desc())\
             .all()
+        print(search)
+        print(len(search))
 
         cur_time = datetime.datetime.now()
 
