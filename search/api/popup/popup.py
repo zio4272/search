@@ -71,6 +71,7 @@ class Popup(Resource):
 
         search = Contacts.query\
             .filter(Contacts.phone == args['phone'])\
+            .filter(Contacts.uid == Users.id)\
             .all()
 
         print(search)
@@ -86,6 +87,7 @@ class Popup(Resource):
                 'data': {
                     'name': search[0].name,
                     'phone': args['phone'],
+                    'shopname': search[0].user.name,
                     'total' : str(total)
                 } 
             }, 200
