@@ -10,9 +10,11 @@ class Config(object):
     """
     DEBUG = False
     TESTING = False
+    JWT_SECRET = 'some secret key'
+    JWT_ALGORITHM = 'HS512'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:dlstkrhk1q'+\
-        '@localhost/phone'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:dlstkrhk1q'+\
+        '@phonebook.czyrqgd1z2hn.ap-northeast-2.rds.amazonaws.com/phone'
 
 class ProductionConfig(Config):
     """
