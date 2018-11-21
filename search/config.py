@@ -13,8 +13,8 @@ class Config(object):
     JWT_SECRET = 'some secret key'
     JWT_ALGORITHM = 'HS512'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:dlstkrhk1q'+\
-        '@phonebook.czyrqgd1z2hn.ap-northeast-2.rds.amazonaws.com/phone'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:dbpassword'+\
+        '@search.czyrqgd1z2hn.ap-northeast-2.rds.amazonaws.com/search'
 
 class ProductionConfig(Config):
     """

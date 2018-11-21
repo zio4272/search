@@ -73,11 +73,11 @@ class CallLog(Resource):
 
         for i in range(len(call_log_list)):
             field = call_log_list[i].split('|')
-            print(field[0])
-            print(field[1])
-            print(field[2])
-            print(field[3])
-            print(field[4])
+            # print(field[0])
+            # print(field[1])
+            # print(field[2])
+            # print(field[3])
+            # print(field[4])
 
             call_log = CallLogs()
             call_log.uid = user

@@ -76,9 +76,9 @@ class Contact(Resource):
 
         for i in range(len(contact_list)):
             field = contact_list[i].split('|')
-            print(field[0])
-            print(field[1])
-            print(field[2])
+            # print(field[0])
+            # print(field[1])
+            # print(field[2])
 
             contact = Contacts()
             contact.uid = user

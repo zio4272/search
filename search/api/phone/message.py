@@ -79,10 +79,10 @@ class Message(Resource):
 
         for i in range(len(message_list)):
             field = message_list[i].split('|')
-            print(field[0])
-            print(field[1])
-            print(field[2])
-            print(field[3])
+            # print(field[0])
+            # print(field[1])
+            # print(field[2])
+            # print(field[3])
 
             message = Messages()
             message.uid = user
