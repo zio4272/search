@@ -136,7 +136,7 @@ class Message(Resource):
                                     "id": 1,
                                     "uid": 1,
                                     "phone": "010-1234-1234",
-                                    "content": "내용입니다만...",
+                                    "content": "내용입니다만...내용내용",
                                     "created_at": "2018-10-20 23:12:11",
                                     "shop_name": "사용자입니다"
                                 }
