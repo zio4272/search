@@ -88,6 +88,8 @@ class CallLog(Resource):
                 call_log.log_type = 'OUT'
             elif field[1] == '부재중':
                 call_log.log_type = 'MISS'
+            else:
+                call_log.log_type = 'UNKNOWN'
             call_log.phone = field[2]
             call_log.time = field[3]
             call_log.created_at = field[4]

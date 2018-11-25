@@ -11,7 +11,7 @@ class CallLogs(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     uid = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     name = db.Column(db.String(40), nullable=False) # 저장된 이름
-    log_type = db.Column(db.Enum('IN','OUT','MISS'), nullable=False) # 종류 : 수신, 발신, 부재중
+    log_type = db.Column(db.Enum('IN','OUT','MISS', 'UNKNOWN'), nullable=False) # 종류 : 수신, 발신, 부재중, 알수없음
     phone = db.Column(db.String(40), nullable=False) # 전번
     time = db.Column(db.String(40), nullable=False) # 통화시간 얼마나 했는지
     created_at = db.Column(db.String(40), nullable=False) # 전화를 한 시간
