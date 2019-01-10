@@ -17,12 +17,15 @@ def create_app(config_name):
     api = Api(app, api_version='0.0', api_spec_url='/api/spec', title='search spec', catch_all_404s=True)
 
     from .api.auth import Auth
+    from .api.admin import Admin
     from .api.phone import Contact, Message, CallLog
     from .api.popup import Popup
     from .api.period import Period
     from .api.notice import Notice
     
     api.add_resource(Auth, '/auth')
+
+    api.add_resource(Admin, '/admin')
 
     api.add_resource(Contact, '/contact')
     api.add_resource(Message, '/message')
