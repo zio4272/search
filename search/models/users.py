@@ -19,7 +19,7 @@ class Users(db.Model):
     call_log = db.relationship('CallLogs')
     message = db.relationship('Messages')
     period = db.relationship('Periods', uselist=False)
-    admin = db.relationship('Admins', backref='Users', lazy=True)
+    admin = db.relationship('Admins')
 
     def get_user_object(self, period_object=False, days_object=False):
         user = {

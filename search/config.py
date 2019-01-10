@@ -13,8 +13,8 @@ class Config(object):
     JWT_SECRET = 'some secret key'
     JWT_ALGORITHM = 'HS512'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:dlstkrhk1q'+\
-        '@localhost/search'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://admin:dlstkrhk1q'+\
+        '@green.c6xdlmrjgyaf.ap-northeast-2.rds.amazonaws.com/green'
 
 class ProductionConfig(Config):
     """
