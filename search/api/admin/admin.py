@@ -125,7 +125,10 @@ class Admin(Resource):
                             
                 return {
                     'code': 200,
-                    'message': '회원 등업 성공.'
+                    'message': '회원 등업 성공.',
+                    'data': {
+                        'auth': user.get_user_object()
+                    }
                 }, 200
 
             return {
