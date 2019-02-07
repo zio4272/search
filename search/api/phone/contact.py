@@ -1,5 +1,6 @@
 # -*- coding:utf8 -*-
 #pylint: disable=E1101,C0103
+import re
 import datetime
 
 from flask import g, current_app
@@ -79,11 +80,13 @@ class Contact(Resource):
             # print(field[0])
             # print(field[1])
             # print(field[2])
-
+            
             contact = Contacts()
-            contact.uid = user
+            contact.uid = 52
             contact.name = field[0]
-            contact.phone = field[1]
+            numbers = re.findall("\d+", field[1])
+            print(numbers)
+            contact.phone = numbers
             contact.created_at = field[2]
 
             db.session.add(contact)
@@ -162,9 +165,12 @@ class Contact(Resource):
 
         user = g.user.id
 
+        numbers = re.findall("\d+", args['phone'])
+        print(numbers)  
+
         search = Contacts.query\
-            .filter(Contacts.phone == args['phone'])\
-            .all()
+            .filter(Contacts.phone == numbers)\
+            .all()      
 
         cur_time = datetime.datetime.now()
 
